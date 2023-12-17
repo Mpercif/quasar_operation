@@ -15,7 +15,6 @@ from quasarservice.helpers.responseHelper import json_response
 
 
 class ImperialFleet(Resource):
-    @swag_from(APIDOCS_PATH + "/v1.1/business_loan/loan_list.yml")
     def post(self, fleet_information):
         try:
             data = json.loads(fleet_information)
