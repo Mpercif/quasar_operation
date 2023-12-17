@@ -1,14 +1,14 @@
 import json
 
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import NotFound, BadRequest
 
-class HttpNotFound(NotFound):
-    """HttpNotFound class"""
 
-    def __init__(self, message):
-        """HttpNotFound constructor"""
-        NotFound.__init__(self)
-        self.description = message
+class SatelliteNotFound(BadRequest):
+    code = 400
+    message = "Satellite not updated because not found"
+
+class SatelliteValidationNotSuccess(NotFound):
+    pass
 
 class JsonDecodeError:
     def __init__(self, text):
