@@ -1,17 +1,15 @@
 import json
 
-from flasgger import swag_from
 from flask_restful import Resource
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
 
-from quasarservice.app.api.controllers.ImperialFleetController import (
+from app.api.controllers.ImperialFleetController import (
     ImperialFleetController,
 )
-from quasarservice.app.api.controllers.JsonSchemaController import JsonSchemaController
-from quasarservice.app.exceptions.errors import SatelliteValidationNotSuccess
-from quasarservice.default_config import APIDOCS_PATH
-from quasarservice.helpers.responseHelper import json_response
+from app.api.controllers.JsonSchemaController import JsonSchemaController
+from app.exceptions.errors import SatelliteValidationNotSuccess
+from helpers.responseHelper import json_response
 
 
 class ImperialFleet(Resource):

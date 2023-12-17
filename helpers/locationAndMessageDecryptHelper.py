@@ -1,5 +1,5 @@
 import numpy as np
-from quasarservice.app.exceptions.errors import SatelliteValidationNotSuccess
+from app.exceptions.errors import SatelliteValidationNotSuccess
 
 
 class LocationAndMessageDecryptHelper(object):

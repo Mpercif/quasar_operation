@@ -1,8 +1,8 @@
 from flask_restful import Api
 
-from quasarservice.app import app
-from quasarservice.app.api.resources.ImperialFleet import ImperialFleet
-from quasarservice.app.api.resources.Satellite import Satellite
+from app import app
+from app.api.resources.ImperialFleet import ImperialFleet
+from app.api.resources.Satellite import Satellite
 
 api = Api(app)
 

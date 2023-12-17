@@ -1,7 +1,7 @@
 from marshmallow import fields
 from marshmallow_sqlalchemy import ModelSchema
 
-from quasarservice.app.models import ImperialFleet, Satellite
+from app.models import ImperialFleet, Satellite
 
 
 class ImperialFleetSchema(ModelSchema):

@@ -11,4 +11,4 @@ __pycache__/
 nosetests.xml
 coverage.xml
 
-.idea/
+../.idea/

@@ -1,9 +1,9 @@
 import json
 
-from quasarservice.app.api.controllers.SatelliteController import SatelliteController
-from quasarservice.app.api.managers.ImperialFleetManager import ImperialFleetManager
-from quasarservice.app.exceptions.errors import SatelliteValidationNotSuccess
-from quasarservice.helpers.locationAndMessageDecryptHelper import (
+from app.api.controllers.SatelliteController import SatelliteController
+from app.api.managers.ImperialFleetManager import ImperialFleetManager
+from app.exceptions.errors import SatelliteValidationNotSuccess
+from helpers.locationAndMessageDecryptHelper import (
     LocationAndMessageDecryptHelper,
 )
 

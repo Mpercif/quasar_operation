@@ -3,10 +3,10 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_restful import Api
 from flask_script import Manager, Server, Shell
 
-from quasarservice.app import app, db
-from quasarservice.app.api.resources.ImperialFleet import ImperialFleet
-from quasarservice.app.api.resources.Satellite import Satellite
-from quasarservice.default_config import APIDOCS_PATH
+from app import app, db
+from app.api.resources.ImperialFleet import ImperialFleet
+from app.api.resources.Satellite import Satellite
+from default_config import APIDOCS_PATH
 
 app.config["SWAGGER"] = {
     "description": "Quasar Operation Service API Docs",

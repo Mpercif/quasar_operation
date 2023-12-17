@@ -1,6 +1,6 @@
-from quasarservice.app import db
-from quasarservice.app.exceptions.errors import SatelliteNotFound
-from quasarservice.app.models import Satellite
+from app import db
+from app.exceptions.errors import SatelliteNotFound
+from app.models import Satellite
 
 
 class SatelliteManager(object):

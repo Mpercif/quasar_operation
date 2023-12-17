@@ -1,7 +1,7 @@
 import json
 
-from quasarservice.app.api.managers.SatelliteManager import SatelliteManager
-from quasarservice.app.exceptions.errors import (
+from app.api.managers.SatelliteManager import SatelliteManager
+from app.exceptions.errors import (
     SatelliteNotFound,
     SatelliteValidationNotSuccess,
 )

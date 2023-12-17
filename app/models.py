@@ -1,6 +1,6 @@
 from sqlalchemy import Sequence
 
-from quasarservice.app import db
+from app import db
 
 
 class ImperialFleet(db.Model):

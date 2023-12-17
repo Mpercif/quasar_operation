@@ -5,14 +5,14 @@ from flask_restful import Resource
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
 
-from quasarservice.app.api.controllers.ImperialFleetController import ImperialFleetController
-from quasarservice.app.api.controllers.JsonSchemaController import JsonSchemaController
-from quasarservice.app.api.controllers.SatelliteController import SatelliteController
-from quasarservice.app.exceptions.errors import (
+from app.api.controllers.ImperialFleetController import ImperialFleetController
+from app.api.controllers.JsonSchemaController import JsonSchemaController
+from app.api.controllers.SatelliteController import SatelliteController
+from app.exceptions.errors import (
     SatelliteValidationNotSuccess,
     SatelliteNotFound,
 )
-from quasarservice.helpers.responseHelper import json_response
+from helpers.responseHelper import json_response
 
 
 class Satellite(Resource):

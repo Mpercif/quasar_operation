@@ -1,5 +1,5 @@
-from quasarservice.app import db
-from quasarservice.app.models import ImperialFleet
+from app import db
+from app.models import ImperialFleet
 
 
 class ImperialFleetManager(object):
