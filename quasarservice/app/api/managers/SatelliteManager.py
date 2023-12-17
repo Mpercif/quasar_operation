@@ -64,7 +64,7 @@ class SatelliteManager(object):
             )
             self.__db_session.commit() if autocommit else self.__db_session.flush()
 
-            return satellite_updated
+            return satellite
         except SatelliteNotFound as e:
             raise e
         except Exception as e:
