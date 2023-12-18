@@ -17,15 +17,17 @@ class ImperialFleetManager(object):
         else:
             self.__db_session = db_session
 
-    def create_new_status_fleet(self, message, position, autocommit=False):
+    def create_new_status_fleet(self, new_values, autocommit=False):
         """
         Create a new fleet status
-        :param message: message of the fleet. "este es un mensaje secreto"
-        :param position: x and y coordinates of the fleet. '"position": { "x": -100, "y": 75.5}'
+        :param new_values: object data. Ie, {
+          "position": [100, -75],
+          "message": ["este", "", "", "mensaje", ""]
+        }
         :param autocommit: flag to know if tha changes must be committed
         """
         try:
-            new_status_fleet = ImperialFleet(message, position)
+            new_status_fleet = ImperialFleet(**new_values)
             self.__db_session.add(new_status_fleet)
             self.__db_session.commit() if autocommit else self.__db_session.flush()
 

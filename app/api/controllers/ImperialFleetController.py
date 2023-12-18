@@ -103,6 +103,8 @@ class ImperialFleetController(object):
             "message": "este es un mensaje secreto"
           }
         """
-        ImperialFleetManager().create_new_status_fleet(
-            new_status["message"], json.dumps(new_status["position"]), True
-        )
+        new_value = {
+            "message": new_status["message"],
+            "position": json.dumps(new_status["position"])
+        }
+        ImperialFleetManager().create_new_status_fleet(new_value, True)
