@@ -8,8 +8,26 @@ from app.exceptions.errors import (
 
 
 class SatelliteController(object):
+    """
+    Contains methods related to satellite
+    """
     @staticmethod
     def update_satellite_data(satellite_data):
+        """
+        Update satellite information
+        :param satellite_data: Object with satellite information
+        {
+          "name": "kenobi",
+          "distance": 100.0,
+          "message": ["este", "", "", "mensaje", ""]
+        }
+        :return: Returns the updated information of the formatted satellite.
+        {
+          "name": "kenobi",
+          "distance": 100.0,
+          "message": ["este", "", "", "mensaje", ""]
+        }
+        """
         try:
             satellite_manager = SatelliteManager()
             filters = {"name": satellite_data.pop("name")}
@@ -31,6 +49,21 @@ class SatelliteController(object):
 
     @staticmethod
     def create_satellite_data(satellite_data):
+        """
+        Create the satellite in the database.
+        :param satellite_data: Object with satellite information
+        {
+          "name": "skywalker",
+          "distance": 115.5,
+          "message": ["", "es", "", "un", ""]
+        }
+        :return: Returns formatted information from the new satellite.
+        {
+          "name": "skywalker",
+          "distance": 115.5,
+          "message": ["", "es", "", "un", ""]
+        }
+        """
         try:
             satellite_manager = SatelliteManager()
             filters = {"name": satellite_data["name"]}
@@ -46,6 +79,18 @@ class SatelliteController(object):
 
     @staticmethod
     def get_valid_satellites_data():
+        """
+        Obtains the valid satellites (those with position and distance) and returns them formatted.
+        :return:
+        [
+            {
+              "name": "kenobi",
+              "distance": 100.0,
+              "message": ["este", "", "", "mensaje", ""]
+            },
+            ...
+        ]
+        """
         try:
             satellite_manager = SatelliteManager()
             satellites = satellite_manager.get_satellites()
@@ -62,10 +107,32 @@ class SatelliteController(object):
             raise e
 
     def get_missing_satellites(self, satellite_info):
+        """
+        obtains the information of the other satellites and returns the information of the
+        valid satellites together with the information sent by parameter
+        :param satellite_info: Object with satellite information
+        {
+          "name": "skywalker",
+          "distance": 115.5,
+          "message": ["", "es", "", "un", ""]
+        }
+        :return:
+        [
+            {
+              "name": "kenobi",
+              "distance": 100.0,
+              "message": ["este", "", "", "mensaje", ""]
+            },
+            {
+              "name": "skywalker",
+              "distance": 115.5,
+              "message": ["", "es", "", "un", ""]
+            }
+            ...
+        ]
+        """
         try:
-            satellite_manager = SatelliteManager()
             current_satellite_name = satellite_info["name"]
-
             satellites = SatelliteController().get_valid_satellites_data()
             missing_satellites = list(
                 filter(lambda x: x["name"] != current_satellite_name, satellites)
@@ -78,12 +145,7 @@ class SatelliteController(object):
                 raise SatelliteValidationNotSuccess
 
             if not current_satellite:
-                satellite = satellite_manager.get_satellite_by_filters(
-                    {"name": current_satellite_name}
-                )
-                current_satellite = SatelliteController().format_satellite_data(
-                    satellite
-                )
+                current_satellite = SatelliteController().get_satellite({"name": current_satellite_name})
             else:
                 current_satellite = current_satellite[0]
 
@@ -92,13 +154,49 @@ class SatelliteController(object):
 
             return missing_satellites
 
+        except SatelliteNotFound as e:
+            raise e
         except SatelliteValidationNotSuccess as e:
             raise e
         except Exception as e:
             raise e
 
+    def get_satellite(self, satellite_info):
+        """
+        Obtains the satellite using the filters
+        :param satellite_info: Object with satellite information
+        {
+          "name": "skywalker",
+          "distance": 115.5,
+          "message": ["", "es", "", "un", ""]
+        }
+        :return:
+        """
+        try:
+            satellite_manager = SatelliteManager()
+            satellite = satellite_manager.get_satellite_by_filters(satellite_info)
+            return SatelliteController().format_satellite_data(
+                satellite
+            )
+        except SatelliteNotFound as e:
+            raise e
+        except Exception as e:
+            raise e
+
+
     @staticmethod
     def format_satellite_data(satellite):
+        """
+        Formats a Satellite instance in Json format
+        :param satellite: Satellite instance
+        :return: Object formatted in json
+        {
+          "name": "skywalker",
+          "distance": 115.5,
+          "message": ["", "es", "", "un", ""],
+          "position": [500, 600]
+        }
+        """
         return {
             "distance": satellite.distance,
             "message": json.loads(satellite.message) if satellite.message else [],

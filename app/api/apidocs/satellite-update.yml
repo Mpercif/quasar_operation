@@ -1,0 +1,35 @@
+Update the distance and satellite message
+---
+parameters:
+  - name: 'satellite_name'
+    in: path
+    type: string
+    required: true
+    description: (satellite_name) Name of the satellite to be updated
+    default: 'skywalker'
+  - name: 'data'
+    in: body
+    type: string
+    required: true
+    description: (satellite_name) Name of the satellite to be updated
+    default: '{
+      "distance": 100.0,
+      "message": ["este", "", "", "mensaje", ""]
+    }'
+responses:
+  200:
+    description: Update the x and y coordinates and encrypted message of the satellite.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Successful update message
+    examples:
+      {
+        "message": Satellite data have been updated
+      }
+  404:
+    description: Satellite not updated because not found.
+  500:
+    description: There was an error on the server, contact support.

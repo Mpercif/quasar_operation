@@ -4,13 +4,25 @@ from app.models import Satellite
 
 
 class SatelliteManager(object):
+    """
+    Contains methods to access to data related to satellite model
+    """
     def __init__(self, db_session=None):
+        """
+        Init SatelliteManager instance setting database session
+        otherwise use the default db.session
+        :param db_session: (Optional) SQLAlchemy session instance
+        """
         if not db_session:
             self.__db_session = db.session
         else:
             self.__db_session = db_session
 
     def get_satellites(self):
+        """
+        Gets all satellites that have distance and position
+        :return: Satellite object: corresponding to the filters.
+        """
         try:
             return (
                 self.__db_session.query(
@@ -21,7 +33,7 @@ class SatelliteManager(object):
                 )
                 .filter(
                     Satellite.distance.isnot(None),
-                    Satellite.message.isnot(None),
+                    Satellite.position.isnot(None),
                 )
                 .all()
             )
@@ -29,14 +41,34 @@ class SatelliteManager(object):
             raise e
 
     def get_satellite_by_filters(self, filters):
+        """
+        Get satellite by filters
+        :param filters: filter data. Ie, {'name': "sato"}
+        :return: Satellite object: corresponding to the filters.
+        """
         try:
-            db_query = self.__db_session.query(Satellite).filter_by(**filters)
-            return db_query.first()
+            satellite = self.__db_session.query(Satellite).filter_by(**filters)
+            if not satellite:
+                raise SatelliteNotFound
 
+            return satellite.first()
+
+        except SatelliteNotFound as e:
+            raise e
         except Exception as e:
             raise e
 
     def create_satellite(self, filters, new_values, autocommit=False):
+        """
+        Get satellite by filters
+        :param filters: filter data. Ie, {'name': "sato"}
+        :param new_values: object data. Ie, {
+          "distance": 100.0,
+          "message": ["este", "", "", "mensaje", ""]
+        }
+        :param autocommit: flag to know if tha changes must be committed
+        :return: Satellite object: new satellite with the new values.
+        """
         try:
             satellite = self.get_satellite_by_filters(filters)
 
@@ -52,17 +84,25 @@ class SatelliteManager(object):
             raise e
 
     def update_satellite_by_filters(self, filters, new_values, autocommit=False):
+        """
+        Update satellite by filters
+        :param filters: filter data. Ie, {'name': "sato"}
+        :param new_values: object data. Ie, {
+          "distance": 100.0,
+          "message": ["este", "", "", "mensaje", ""]
+        }
+        :param autocommit: flag to know if tha changes must be committed
+        :return: Satellite object: satellite update with the new values.
+        """
         try:
             satellite = self.get_satellite_by_filters(filters)
             if not satellite:
                 raise SatelliteNotFound
 
-            satellite_updated = (
-                self.__db_session.query(Satellite)
-                .filter_by(**filters)
-                .update(new_values)
-            )
+            self.__db_session.query(Satellite).filter_by(**filters).update(new_values)
             self.__db_session.commit() if autocommit else self.__db_session.flush()
+
+            satellite = self.get_satellite_by_filters(filters)
 
             return satellite
         except SatelliteNotFound as e:

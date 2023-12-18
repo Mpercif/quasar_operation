@@ -1,11 +1,10 @@
 import json
 
-from werkzeug.exceptions import NotFound, BadRequest
+from werkzeug.exceptions import NotFound
 
 
-class SatelliteNotFound(BadRequest):
-    code = 400
-    message = "Satellite not updated because not found"
+class SatelliteNotFound(NotFound):
+    message = "Satellite not found"
 
 class SatelliteValidationNotSuccess(NotFound):
     pass

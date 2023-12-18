@@ -1,0 +1,49 @@
+Look up the x and y coordinates of the imperial fleet with new satellite information
+---
+parameters:
+  - name: 'satellite_name'
+    in: path
+    type: string
+    required: true
+    description: (satellite_name) Name of the satellite to be updated
+    default: 'skywalker'
+  - name: 'data'
+    in: body
+    type: string
+    required: true
+    description: (satellite_name) Name of the satellite to be updated
+    default: '{
+      "distance": 100.0,
+      "message": ["este", "", "", "mensaje", ""]
+    }'
+responses:
+  200:
+    description: Update and look up the x and y coordinates of the imperial fleet along with the encrypted message.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          description: encrypted message from the imperial fleet
+        position:
+          properties:
+            x:
+              type: integer
+              description: Imperial fleet x-axis position
+            y:
+              type: integer
+              description: Imperial fleet y-axis position
+    examples:
+      {
+        "position": {
+          "x": -100,
+          "y": 75.5,
+        },
+        "message": este es un mensaje secreto
+      }
+  400:
+    description: The structure of the fleet_information object is wrong.
+  404:
+    description: It was not possible to determine the position or message of the fleet.
+  500:
+    description: There was an error on the server, contact support.

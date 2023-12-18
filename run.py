@@ -13,7 +13,7 @@ app.config["SWAGGER"] = {
     "version": "0.1.1",
 }
 
-#swagger = Swagger(app, template_file=APIDOCS_PATH + "/base.yml")
+swagger = Swagger(app, template_file=APIDOCS_PATH + "/base.yml")
 migrate = Migrate(app, db)
 manager = Manager(app)
 

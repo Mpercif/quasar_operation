@@ -1,0 +1,35 @@
+definitions:
+  imperial_fleet:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      position:
+        type: string
+        example: '{"x": -500, "y": 300}'
+      message:
+        type: string
+        example: 'este es un mensaje secreto'
+
+  satellite:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: 'kenobi'
+      position:
+        type: string
+        example: '{"x": -500, "y": 300}'
+      distance:
+        type: float
+        example: 100.1
+      message:
+        type: string
+        example: '["este", "", "es", ""]'
