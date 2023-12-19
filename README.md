@@ -21,35 +21,34 @@ satélite.
   - Sato: [“”, ””, ”es”, ””, ”mensaje”]
 
 ### Mis consideraciones
-- La distancia de los satellites debe ser mucho mayor a los ejemplos propuestos ya que las soluciones no convergen
-- El desface de los mensajes solo se ven afectados al inicio de cada mensaje.
+- La distancia de los satélites debe ser mucho mayor que la de los ejemplos propuestos, ya que las soluciones no convergen.
+- El desfase de los mensajes solo se ve afectado al inicio de cada mensaje.
 
 
 # Quasarservice
-## pre requsitos
+## Pre requisitos
 * Python 2.7
 
-## Instalar pquetes y librerias
-Crear un ambiente virturla (Opcional)
-(Optional) Create a virtual environment
+## Instalar paquetes y bibliotecas.
+Crear un ambiente virtual (Opcional)
 
 ```bash
 virtualenv -p python2 env
 ```
 
-Activate the virtual environment
+Activar el ambiente virtual
 ```bash
 source env/bin/activate
 ```
 
-Instalar librerias y dependencia de python
+Instalar librerías y dependencias de Python
 
 ```bash
 pip install -r requirements.txt  # Development dependencies
 ```
 
 ## DB - Postgres
-Debe descargar y crear una instancia de postgres
+Debe descargar y crear una instancia de PostgreSQL
 ```bash
 postgresql://postgres:testenv@localhost/mercadolibre
 ```
@@ -67,7 +66,7 @@ python run.py runserver
 ```
 
 ## Coleccion Api Postman
-Pudes usar la coleccion de postman para probar el servicio en la nube
+Puedes usar la colección de Postman para probar el servicio en la nube
 ```bash
 /static/REST_API_ QUASAR_SERVICE.postman_collection
 ```
