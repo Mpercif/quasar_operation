@@ -12,7 +12,7 @@ from app.api.controllers.ImperialFleetController import ImperialFleetController
 from helpers.testHelper import build_patches
 
 
-class ImperialTestResource(unittest.TestCase):
+class ImperialResourceTest(unittest.TestCase):
 
     data = {
         "satellites": [

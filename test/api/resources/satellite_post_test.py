@@ -8,12 +8,12 @@ from mock import MagicMock
 
 from app import app
 from app.api import api
-from app.api.controllers.ImperialFleetController import ImperialFleetController
 from app.api.controllers.SatelliteController import SatelliteController
+from app.api.managers.SatelliteManager import SatelliteManager
 from helpers.testHelper import build_patches
 
 
-class SatelliteGetTestResource(unittest.TestCase):
+class SatelliteGetResourceTest(unittest.TestCase):
 
     data = {
         "data": json.dumps(
@@ -43,24 +43,11 @@ class SatelliteGetTestResource(unittest.TestCase):
     def get_patches(self, new_patches=None):
 
         satellite_controller_mock = SatelliteController()
-        imperial_fleet_controller_mock = ImperialFleetController()
-
-        satellite_controller_mock.get_missing_satellites = MagicMock(
-            return_value=self.data_missing
-        )
-        imperial_fleet_controller_mock.triangulate_position_float = MagicMock(
-            return_value={
-                "position": {"x": -500, "y": 200},
-                "message": "este es un mensaje secreto",
-            },
-        )
+        satellite_controller_mock.update_satellite_data = MagicMock(return_value={})
 
         patches = {
             "app.api.resources.Satellite.SatelliteController": {
                 "return_value": satellite_controller_mock
-            },
-            "app.api.resources.Satellite.ImperialFleetController": {
-                "return_value": imperial_fleet_controller_mock
             },
         }
 
@@ -70,60 +57,53 @@ class SatelliteGetTestResource(unittest.TestCase):
 
         return build_patches(patches)
 
-    def test_topsecret_split_get_success(self):
+    def test_topsecret_split_post_success(self):
         patches = self.get_patches()
 
         with Contexter(*patches):
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=self.data)
-            response = json.loads(res.data)
+            res = client.post(self.endpoint_url, query_string=self.data)
 
             assert res.status_code == 200
-            assert response["message"] == "este es un mensaje secreto"
-            assert response["position"]["x"] == -500
-            assert response["position"]["y"] == 200
+            assert res.data == "Satellite data have been updated"
 
-    def test_topsecret_split_get_no_success(self):
-        new_data_missing = self.data_missing
-        new_data_missing[1]["message"] = ["un", "es", "", "", "secreto"]
-
-        satellite_controller_mock = SatelliteController()
-        satellite_controller_mock.get_missing_satellites = MagicMock(
-            return_value=new_data_missing
-        )
+    def test_topsecret_split_post_no_found(self):
+        satellite_manager_mock = SatelliteManager()
+        satellite_manager_mock.get_satellite_by_filters = MagicMock(return_value=None)
 
         patches = {
-            "app.api.resources.Satellite.SatelliteController": {
-                "return_value": satellite_controller_mock
+            "app.api.controllers.SatelliteController.SatelliteManager": {
+                "return_value": satellite_manager_mock
             },
         }
+
         with Contexter(*build_patches(patches)):
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=self.data)
+            res = client.post(self.endpoint_url, query_string=self.data)
             assert res.status_code == 404
             assert res.status == "404 NOT FOUND"
 
-    def test_topsecret_endpoint_get_invalid_structure_data(self):
+    def test_topsecret_endpoint_post_invalid_structure_data(self):
         new_data = copy(self.data)
         new_data["data"] = json.dumps(["test", "error"])
 
         with Contexter():
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=new_data)
+            res = client.post(self.endpoint_url, query_string=new_data)
             assert res.status_code == 400
             assert "is not of type u'object'" in res.data
 
-    def test_topsecret_endpoint_get_value_error_except(self):
+    def test_topsecret_endpoint_post_value_error_except(self):
         new_data = copy(self.data)
         new_data["data"] = ["test", "error"]
         with Contexter():
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=new_data)
+            res = client.post(self.endpoint_url, query_string=new_data)
             assert res.status_code == 400
             assert res.status == "400 BAD REQUEST"
 
-    def test_topsecret_endpoint_get_server_error(self):
+    def test_topsecret_endpoint_post_server_error(self):
         with Contexter():
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string={})
+            res = client.post(self.endpoint_url, query_string={})
             assert res.status_code == 500

@@ -12,7 +12,7 @@ from app.api.exceptions.errors import SatelliteValidationNotSuccess
 from helpers.testHelper import build_patches
 
 
-class ImperialTestController(unittest.TestCase):
+class ImperialControllerTest(unittest.TestCase):
 
     data = {
         "satellites": [
