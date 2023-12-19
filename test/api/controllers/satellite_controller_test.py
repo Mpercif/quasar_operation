@@ -69,7 +69,6 @@ class FleetControllerTest(unittest.TestCase):
 
         with Contexter(*build_patches(patches)):
             try:
-                print("2")
                 response = SatelliteController().update_satellite_data(satellite_data)
                 assert False
             except SatelliteNotFound as e:

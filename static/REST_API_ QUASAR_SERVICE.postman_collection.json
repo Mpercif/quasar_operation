@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "f65133aa-5f68-41c3-8117-8866c65800b0",
+		"name": "REST API QUASAR SERVICE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15003030"
+	},
+	"item": [
+		{
+			"name": "POST topsecret",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://34.125.136.168/topsecret/{\n    \"satellites\": [\n        {\n            \"name\": \"kenobi\",\n            \"distance\": 800.0,\n            \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"],\n        },\n        {\n            \"name\": \"skywalker\",\n            \"distance\": 600.2,\n            \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"],\n        },\n        {\n            \"name\": \"sato\",\n            \"distance\": 400.3,\n            \"message\": [\"este\", \"\", \"un\", \"\", \"\"],\n        }\n    ]\n}\n\n",
+					"protocol": "http",
+					"host": [
+						"34",
+						"125",
+						"136",
+						"168"
+					],
+					"path": [
+						"topsecret",
+						"{\n    \"satellites\": [\n        {\n            \"name\": \"kenobi\",\n            \"distance\": 800.0,\n            \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"],\n        },\n        {\n            \"name\": \"skywalker\",\n            \"distance\": 600.2,\n            \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"],\n        },\n        {\n            \"name\": \"sato\",\n            \"distance\": 400.3,\n            \"message\": [\"este\", \"\", \"un\", \"\", \"\"],\n        }\n    ]\n}\n\n"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "POST topsecret_split",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"distance\": 800.0, \n    \"message\": [\"este\", \"\", \"\",\"mensaje\", \"\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.125.136.168/topsecret_split/kenobi",
+					"protocol": "http",
+					"host": [
+						"34",
+						"125",
+						"136",
+						"168"
+					],
+					"path": [
+						"topsecret_split",
+						"kenobi"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "GET topsecret_split",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"distance\": 800.0, \n    \"message\": [\"este\", \"\", \"\",\"mensaje\", \"\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.125.136.168/topsecret_split/kenobi",
+					"protocol": "http",
+					"host": [
+						"34",
+						"125",
+						"136",
+						"168"
+					],
+					"path": [
+						"topsecret_split",
+						"kenobi"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}

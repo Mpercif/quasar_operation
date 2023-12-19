@@ -29,7 +29,7 @@ class Satellite(Resource):
         :return: Successful update message. Ie, Satellite data have been updated.
         """
         try:
-            data = json.loads(request.args.get("data"))
+            data = json.loads(request.data)
             self.__validate_params(data)
             data.update({"name": satellite_name})
             SatelliteController().update_satellite_data(data)
@@ -59,7 +59,7 @@ class Satellite(Resource):
           }
         """
         try:
-            data = json.loads(request.args.get("data"))
+            data = json.loads(request.data)
             self.__validate_params(data)
             data.update({"name": satellite_name})
             satellites = SatelliteController().get_missing_satellites(data)

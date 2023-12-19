@@ -7,8 +7,8 @@ class ImperialFleet(db.Model):
     __tablename__ = "imperial_fleet"
 
     id = db.Column(db.Integer, Sequence("imperial_fleet_id_seq"), primary_key=True)
-    position = db.Column(db.String(100), unique=True, nullable=False)
-    message = db.Column(db.String(300), unique=True, nullable=False)
+    position = db.Column(db.String(100), unique=False, nullable=False)
+    message = db.Column(db.String(300), unique=False, nullable=False)
 
     def __init__(self, position, message):
         self.position = position

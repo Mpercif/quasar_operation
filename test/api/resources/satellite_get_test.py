@@ -16,12 +16,8 @@ from helpers.testHelper import build_patches
 class SatelliteGetResourceTest(unittest.TestCase):
 
     data = {
-        "data": json.dumps(
-            {
-                "distance": 100.0,
-                "message": ["este", "", "", "mensaje", ""],
-            }
-        )
+        "distance": 100.0,
+        "message": ["este", "", "", "mensaje", ""],
     }
 
     data_missing = [
@@ -75,7 +71,7 @@ class SatelliteGetResourceTest(unittest.TestCase):
 
         with Contexter(*patches):
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=self.data)
+            res = client.get(self.endpoint_url, data=json.dumps(self.data))
             response = json.loads(res.data)
 
             assert res.status_code == 200
@@ -99,31 +95,40 @@ class SatelliteGetResourceTest(unittest.TestCase):
         }
         with Contexter(*build_patches(patches)):
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=self.data)
+            res = client.get(self.endpoint_url, data=json.dumps(self.data))
             assert res.status_code == 404
             assert res.status == "404 NOT FOUND"
 
     def test_topsecret_endpoint_get_invalid_structure_data(self):
-        new_data = copy(self.data)
-        new_data["data"] = json.dumps(["test", "error"])
+        new_data = ["test", "error"]
 
         with Contexter():
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=new_data)
+            res = client.get(self.endpoint_url, data=json.dumps(new_data))
             assert res.status_code == 400
             assert "is not of type u'object'" in res.data
 
     def test_topsecret_endpoint_get_value_error_except(self):
-        new_data = copy(self.data)
-        new_data["data"] = ["test", "error"]
+        new_data = {
+            "distance": None,
+            "message": ["este", "", "", "mensaje", ""],
+        }
         with Contexter():
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string=new_data)
+            res = client.get(self.endpoint_url, data=json.dumps(new_data))
             assert res.status_code == 400
             assert res.status == "400 BAD REQUEST"
 
     def test_topsecret_endpoint_get_server_error(self):
+        new_data = {
+            "data": json.dumps(
+                {
+                    "distance": 100.0,
+                    "message": ["este", "", "", "mensaje", ""],
+                }
+            )
+        }
         with Contexter():
             client = app.test_client()
-            res = client.get(self.endpoint_url, query_string={})
+            res = client.get(self.endpoint_url, data=json.dumps(self.data))
             assert res.status_code == 500
