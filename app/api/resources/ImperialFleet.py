@@ -54,7 +54,7 @@ class ImperialFleet(Resource):
 
             return response
         except SatelliteValidationNotSuccess as e:
-            return json_response({"message": e}, e.code)
+            return json_response({"message": e.message}, e.code)
         except ValidationError as e:
             return json_response({"message": e}, 400)
         except ValueError as e:

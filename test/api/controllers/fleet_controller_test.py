@@ -18,19 +18,19 @@ class ImperialControllerTest(unittest.TestCase):
         "satellites": [
             {
                 "name": "kenobi",
-                "distance": 800,
+                "distance": 800.0,
                 "message": ["este", "", "", "mensaje", ""],
                 "position": [-500, -200]
             },
             {
                 "name": "skywalker",
-                "distance": 600,
+                "distance": 600.2,
                 "message": ["", "es", "", "", "secreto"],
                 "position": [100, -100]
             },
             {
                 "name": "sato",
-                "distance": 400,
+                "distance": 400.3,
                 "message": ["este", "", "un", "", ""],
                 "position": [500, 100]
             },
@@ -122,7 +122,7 @@ class ImperialControllerTest(unittest.TestCase):
             response = ImperialFleetController().setup_satellite_configuration(data)
             assert isinstance(response, list)
             assert response[0]["name"] == "kenobi"
-            assert response[0]["distance"] == 100.0
+            assert response[0]["distance"] == 800.0
             assert isinstance(response[0]["message"], list)
 
     def test_setup_satellite_configuration_error(self):

@@ -7,7 +7,7 @@ class SatelliteNotFound(NotFound):
     message = "Satellite not found"
 
 class SatelliteValidationNotSuccess(NotFound):
-    pass
+    message = "Not enough information :("
 
 class JsonDecodeError:
     def __init__(self, text):
