@@ -9,7 +9,7 @@ from app.api.controllers.ImperialFleetController import (
     ImperialFleetController,
 )
 from app.api.controllers.JsonSchemaController import JsonSchemaController
-from app.exceptions.errors import SatelliteValidationNotSuccess
+from app.api.exceptions.errors import SatelliteValidationNotSuccess
 from default_config import APIDOCS_PATH
 from helpers.responseHelper import json_response
 

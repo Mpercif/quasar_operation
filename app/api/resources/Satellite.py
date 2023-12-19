@@ -9,7 +9,7 @@ from jsonschema.validators import validate
 from app.api.controllers.ImperialFleetController import ImperialFleetController
 from app.api.controllers.JsonSchemaController import JsonSchemaController
 from app.api.controllers.SatelliteController import SatelliteController
-from app.exceptions.errors import (
+from app.api.exceptions.errors import (
     SatelliteValidationNotSuccess,
     SatelliteNotFound,
 )

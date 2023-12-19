@@ -1,5 +1,5 @@
 import numpy as np
-from app.exceptions.errors import SatelliteValidationNotSuccess
+from app.api.exceptions.errors import SatelliteValidationNotSuccess
 
 
 class LocationAndMessageDecryptHelper(object):

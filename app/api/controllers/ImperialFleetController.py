@@ -2,7 +2,7 @@ import json
 
 from app.api.controllers.SatelliteController import SatelliteController
 from app.api.managers.ImperialFleetManager import ImperialFleetManager
-from app.exceptions.errors import SatelliteValidationNotSuccess
+from app.api.exceptions.errors import SatelliteValidationNotSuccess
 from helpers.locationAndMessageDecryptHelper import (
     LocationAndMessageDecryptHelper,
 )
@@ -103,8 +103,11 @@ class ImperialFleetController(object):
             "message": "este es un mensaje secreto"
           }
         """
-        new_value = {
-            "message": new_status["message"],
-            "position": json.dumps(new_status["position"])
-        }
-        ImperialFleetManager().create_new_status_fleet(new_value, True)
+        try:
+            new_value = {
+                "message": new_status["message"],
+                "position": json.dumps(new_status["position"])
+            }
+            ImperialFleetManager().create_new_status_fleet(new_value, True)
+        except Exception as e:
+            raise e

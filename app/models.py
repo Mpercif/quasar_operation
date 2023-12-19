@@ -23,7 +23,7 @@ class Satellite(db.Model):
     distance = db.Column(db.Float(), nullable=True)
     message = db.Column(db.String(300), nullable=True)
 
-    def __init__(self, name, position, distance, message):
+    def __init__(self, name, position, distance=None, message=None):
         self.name = name
         self.position = position
         self.distance = distance

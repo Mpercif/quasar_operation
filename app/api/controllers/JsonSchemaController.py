@@ -1,6 +1,6 @@
 from flask_cache import logger
 
-from app.exceptions.errors import deserialize_json, JsonSchemaNotFound
+from app.api.exceptions.errors import deserialize_json, JsonSchemaNotFound
 from default_config import JSON_SCHEMA_PATH
 
 

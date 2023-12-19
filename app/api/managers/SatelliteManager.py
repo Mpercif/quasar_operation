@@ -1,5 +1,5 @@
 from app import db
-from app.exceptions.errors import SatelliteNotFound
+from app.api.exceptions.errors import SatelliteNotFound
 from app.models import Satellite
 
 
@@ -75,6 +75,7 @@ class SatelliteManager(object):
             if satellite:
                 self.update_satellite_by_filters(filters, new_values)
             else:
+                new_values.update(filters)
                 satellite = Satellite(**new_values)
                 self.__db_session.add(satellite)
             self.__db_session.commit() if autocommit else self.__db_session.flush()
