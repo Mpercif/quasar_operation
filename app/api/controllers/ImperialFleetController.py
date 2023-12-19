@@ -86,9 +86,7 @@ class ImperialFleetController(object):
         Calls get_message method to find position
         :param location_message_helper: LocationAndMessageDecryptHelper instance
         """
-        return location_message_helper.get_location(
-            location_message_helper.get_parameter_list("message")
-        )
+        return location_message_helper.get_location()
 
     @staticmethod
     def create_new_status_fleet(new_status):

@@ -70,8 +70,12 @@ class SatelliteController(object):
             new_data = {
                 "distance": satellite_data["distance"],
                 "message": json.dumps(satellite_data["message"]),
-                "position": json.dumps(satellite_data.get("position", [])),
             }
+            if satellite_data.get("position"):
+                new_data.update({
+                    "position": json.dumps(satellite_data["position"])
+                })
+
             new_satellite = satellite_manager.create_satellite(
                 filters, new_data, True
             )

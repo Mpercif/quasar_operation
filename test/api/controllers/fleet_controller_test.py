@@ -18,15 +18,22 @@ class ImperialControllerTest(unittest.TestCase):
         "satellites": [
             {
                 "name": "kenobi",
-                "distance": 100.0,
+                "distance": 800,
                 "message": ["este", "", "", "mensaje", ""],
+                "position": [-500, -200]
             },
             {
                 "name": "skywalker",
-                "distance": 115.5,
+                "distance": 600,
                 "message": ["", "es", "", "", "secreto"],
+                "position": [100, -100]
             },
-            {"name": "sato", "distance": 142.7, "message": ["este", "", "un", "", ""]},
+            {
+                "name": "sato",
+                "distance": 400,
+                "message": ["este", "", "un", "", ""],
+                "position": [500, 100]
+            },
         ]
     }
 

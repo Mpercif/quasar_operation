@@ -9,6 +9,7 @@ from app.api.controllers.ImperialFleetController import (
     ImperialFleetController,
 )
 from app.api.controllers.JsonSchemaController import JsonSchemaController
+from app.api.controllers.SatelliteController import SatelliteController
 from app.api.exceptions.errors import SatelliteValidationNotSuccess
 from default_config import APIDOCS_PATH
 from helpers.responseHelper import json_response
@@ -45,9 +46,10 @@ class ImperialFleet(Resource):
         try:
             data = json.loads(fleet_information)
             self.__validate_params(data)
-            satellites = ImperialFleetController().setup_satellite_configuration(
+            ImperialFleetController().setup_satellite_configuration(
                 data["satellites"]
             )
+            satellites = SatelliteController().get_valid_satellites_data()
             response = ImperialFleetController().triangulate_position_float(satellites)
 
             return response

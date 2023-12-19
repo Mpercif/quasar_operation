@@ -34,6 +34,7 @@ class SatelliteManager(object):
                 .filter(
                     Satellite.distance.isnot(None),
                     Satellite.position.isnot(None),
+                    Satellite.message.isnot(None),
                 )
                 .all()
             )

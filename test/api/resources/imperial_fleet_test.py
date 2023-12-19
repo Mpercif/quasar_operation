@@ -9,6 +9,7 @@ from mock import MagicMock
 from app import app
 from app.api import api
 from app.api.controllers.ImperialFleetController import ImperialFleetController
+from app.api.controllers.SatelliteController import SatelliteController
 from helpers.testHelper import build_patches
 
 
@@ -34,9 +35,10 @@ class ImperialResourceTest(unittest.TestCase):
     def get_patches(self, new_patches=None):
 
         imperial_fleet_controller_mock = ImperialFleetController()
+        satellite_controller_mock = SatelliteController()
 
         imperial_fleet_controller_mock.setup_satellite_configuration = MagicMock(
-            return_value=self.data["satellites"],
+            return_value={},
         )
         imperial_fleet_controller_mock.triangulate_position_float = MagicMock(
             return_value={
@@ -44,10 +46,17 @@ class ImperialResourceTest(unittest.TestCase):
                 "message": "este es un mensaje secreto",
             },
         )
+        satellite_controller_mock.get_valid_satellites_data = MagicMock(
+            return_value=self.data["satellites"],
+        )
+
 
         patches = {
             "app.api.resources.ImperialFleet.ImperialFleetController": {
                 "return_value": imperial_fleet_controller_mock
+            },
+            "app.api.resources.ImperialFleet.SatelliteController": {
+                "return_value": satellite_controller_mock
             }
         }
 
@@ -74,12 +83,20 @@ class ImperialResourceTest(unittest.TestCase):
         endpoint_url = "/topsecret/{}".format(json.dumps(new_data))
 
         imperial_fleet_controller_mock = ImperialFleetController()
+        satellite_controller_mock = SatelliteController()
+
         imperial_fleet_controller_mock.setup_satellite_configuration = MagicMock(
+            return_value=self.data["satellites"],
+        )
+        satellite_controller_mock.get_valid_satellites_data = MagicMock(
             return_value=self.data["satellites"],
         )
         patches = {
             "app.api.resources.ImperialFleet.ImperialFleetController": {
                 "return_value": imperial_fleet_controller_mock
+            },
+            "app.api.resources.ImperialFleet.SatelliteController": {
+                "return_value": satellite_controller_mock
             }
         }
         with Contexter(*build_patches(patches)):
